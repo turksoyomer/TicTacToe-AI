@@ -6,8 +6,11 @@ Source: Russell, S., Norvig, P. 2010. Artificial Intelligence A Modern Approach
 
 ## MiniMax Algorithm
 Tooks 8.48 seconds to make move on first turn for MiniMax algorithm.
+
  ![MiniMax Time](https://github.com/turksoyomer/TicTacToe-AI/blob/master/images/minimax_time.PNG)
+ 
 Tooks 0.28 seconds to make move on first turn for MiniMax algorithm with Alpha-Beta Pruning.
+
  ![AlphaBeta Time](https://github.com/turksoyomer/TicTacToe-AI/blob/master/images/alphabeta_time.PNG)
  
 ## Q-Learning Agent
