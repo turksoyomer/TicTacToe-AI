@@ -3,7 +3,6 @@
 @author: turksoyomer
 """
 
-import numpy as np
 import random
 
 class MiniMax:
@@ -12,6 +11,7 @@ class MiniMax:
         self.opponent = 1 if player == 2 else 2
         self.player1_marker = "X"
         self.player2_marker = "O"
+        self.name = "MiniMax"
     
     def evaluate(self, state, done, winner):
         if done and winner == self.player:
@@ -22,53 +22,53 @@ class MiniMax:
             return 0
         
     def get_actionPool(self, state):
-        return list(np.where(state.reshape(9,) == "_")[0])
-    
-    def decode_action(self, action):
-        column = action // 3
-        row = action % 3
-        return column, row
-    
+        actionPool = []
+        for index, square in enumerate(state):
+            if square == "_":
+                actionPool.append(index)
+        return actionPool
+
     def check_winner(self, state, turn):
         if turn == 1:
-            if state[0,0] == state[1,1] == state[2,2] == self.player1_marker:
+            if state[0] == state[4] == state[8] == self.player1_marker:
                 winner = 1
                 return True, winner
-            elif state[0,2] == state[1,1] == state[2,0] == self.player1_marker:
+            elif state[2] == state[4] == state[6] == self.player1_marker:
                 winner = 1
                 return True, winner
-            for index in range(3):
-                if state[index,0] == state[index,1] == state[index,2] == self.player1_marker:
+            for i in range(0, 9, 3):
+                if state[i+0] == state[i+1] == state[i+2] == self.player1_marker:
                     winner = 1
                     return True, winner
-                elif state[0,index] == state[1,index] == state[2,index] == self.player1_marker:
+            for j in range(3):
+                if state[j+0] == state[j+3] == state[j+6] == self.player1_marker:
                     winner = 1
                     return True, winner
         elif turn == 2:
-            if state[0,0] == state[1,1] == state[2,2] == self.player2_marker:
+            if state[0] == state[4] == state[8] == self.player2_marker:
                 winner = 2
                 return True, winner
-            elif state[0,2] == state[1,1] == state[2,0] == self.player2_marker:
+            elif state[2] == state[4] == state[6] == self.player2_marker:
                 winner = 2
                 return True, winner
-            for index in range(3):
-                if state[index,0] == state[index,1] == state[index,2] == self.player2_marker:
+            for i in range(0, 9, 3):
+                if state[i+0] == state[i+1] == state[i+2] == self.player2_marker:
                     winner = 2
                     return True, winner
-                elif state[0,index] == state[1,index] == state[2,index] == self.player2_marker:
+            for j in range(3):
+                if state[j+0] == state[j+3] == state[j+6] == self.player2_marker:
                     winner = 2
                     return True, winner
-        if np.sum(state == "_") == 0:
+        if state.count("_") == 0:
             winner = "Tie"
             return True, winner
         return False, None
     
     def step(self, state, action, turn):
-        column, row = self.decode_action(action)
         if turn == 1:
-            state[column, row] = self.player1_marker
+            state[action] = self.player1_marker
         elif turn == 2:
-            state[column, row] = self.player2_marker
+            state[action] = self.player2_marker
         done, winner = self.check_winner(state, turn)
         return state, done, winner
     

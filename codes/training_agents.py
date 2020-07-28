@@ -32,8 +32,8 @@ for e in range(500000):
                 elif game.winner == "O":
                     agent1_memory[2] = -1    
                     agent2_memory[2] = 1
-                agent1.update_q_table(agent1_memory[0], agent1_memory[1], agent1_memory[2], None)
-                agent2.update_q_table(agent2_memory[0], agent2_memory[1], agent2_memory[2], None)
+                agent1.update_q_table(agent1_memory[0], agent1_memory[1], agent1_memory[2], agent1_memory[3])
+                agent2.update_q_table(agent2_memory[0], agent2_memory[1], agent2_memory[2], agent2_memory[3])
                 break
             if agent2_memory[0] is not None:
                 agent2.update_q_table(agent2_memory[0], agent2_memory[1], agent2_memory[2], agent2_memory[3])
@@ -53,11 +53,14 @@ for e in range(500000):
                 elif game.winner == "O":
                     agent1_memory[2] = -1    
                     agent2_memory[2] = 1
-                agent1.update_q_table(agent1_memory[0], agent1_memory[1], agent1_memory[2], None)
-                agent2.update_q_table(agent2_memory[0], agent2_memory[1], agent2_memory[2], None)
+                agent1.update_q_table(agent1_memory[0], agent1_memory[1], agent1_memory[2], agent1_memory[3])
+                agent2.update_q_table(agent2_memory[0], agent2_memory[1], agent2_memory[2], agent2_memory[3])
                 break
             if agent1_memory[0] is not None:
                 agent1.update_q_table(agent1_memory[0], agent1_memory[1], agent1_memory[2], agent1_memory[3])
     if e % 100 == 0:
         print("Episode", e, "completed")
-print("Training completed")
+print("Training completed.")
+agent1.save_q_table()
+agent2.save_q_table()
+print("Q Tables saved.")

@@ -34,8 +34,8 @@ for e in range(100):
         score_board["AlphaBeta"] += 1
     elif game.winner == "Tie":
         score_board["Tie"] += 1
-        
-#%%
+
+print("Agent1 Score Board:", score_board)
         
 game = TicTacToe()
 agent1 = AlphaBeta(player=1)
@@ -59,9 +59,10 @@ for e in range(100):
             if done:
                 break
     if game.winner == "X":
-        game.render()
         score_board["AlphaBeta"] += 1
     elif game.winner == "O":
         score_board["Agent2"] += 1
     elif game.winner == "Tie":
         score_board["Tie"] += 1
+
+print("Agent2 Score Board:", score_board)
