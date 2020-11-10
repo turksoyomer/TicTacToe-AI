@@ -1,4 +1,3 @@
-from collections import defaultdict
 import random
 import pickle
 
@@ -10,7 +9,7 @@ class QLearning:
         self.epsilon = epsilon
         self.epsilon_min = 0.01
         self.epsilon_decay = 5.8e-07
-        self.q_table = defaultdict(float)
+        self.q_table = dict()
 
     def get_actionPool(self, state):
         actionPool = []
@@ -26,16 +25,16 @@ class QLearning:
         best_action = None
         best_q_value = None
         for action in actionPool:
-            q_value = self.q_table[(tuple(state), action)]
+            q_value = self.q_table.get((tuple(state), action), 0)
             if best_q_value is None or q_value > best_q_value:
                 best_q_value = q_value
                 best_action = action
         return best_action
     
     def update_q_table(self, state, action, reward, next_state):
-        old_value = self.q_table[(tuple(state), action)]
+        old_value = self.q_table.get((tuple(state), action), 0)
         next_action = self.action(next_state, exploration=False)
-        next_value = self.q_table[(tuple(next_state), next_action)]
+        next_value = self.q_table.get((tuple(next_state), next_action), 0)
         self.q_table[(tuple(state), action)] = (1 - self.alpha) * old_value + self.alpha * (reward + self.gamma * next_value)
         self.update_epsilon()
 
